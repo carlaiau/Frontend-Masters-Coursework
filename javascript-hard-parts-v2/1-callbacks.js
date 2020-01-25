@@ -81,19 +81,16 @@ console.log("Reduce:", reduce(nums, add, 0))
 
 function intersection(initialValue, ...arrays) {	
 
-	return reduce(arrays, function(inital, array){
-		const output = []
-		forEach(array, (el) => {
-			if(inital.includes(el)) output.push(el)
+	return reduce(arrays, (current, next) => {
+		const filtered = []
+		forEach(next, el => {
+			if(current.includes(el)) filtered.push(el)
 		})
-		return output
+		return filtered
 	}, initialValue)
 }
 
-
-
-
-console.log(intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]));
+console.log(intersection([5, 10, 15, 20, 13], [15, 88, 1, 5, 7, 13], [1, 13, 10, 15, 5, 20]));
 // should log: [5, 15]
 
 //Extension 4
