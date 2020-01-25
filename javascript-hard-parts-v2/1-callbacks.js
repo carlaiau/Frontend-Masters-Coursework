@@ -26,18 +26,26 @@ console.log(addS('bagel'));
 
 // Challenge 3
 function map(array, callback) {
-	
+	let output = []
+	for(i = 0; i < array.length; i++){
+		output.push(callback(array[i]))
+	}
+	return output
 }
 
-// console.log(map([1, 2, 3], addTwo));
-
+console.log(map([1, 2, 3], addTwo));
 
 // Challenge 4
 function forEach(array, callback) {
-
+	for(i = 0; i < array.length; i++){
+		callback(array[i])
+	}
 }
 
 // see for yourself if your forEach works!
+forEach([1,2,3,4,5], (element) => {
+	console.log(element * 10)
+})
 
 
 //--------------------------------------------------
@@ -46,20 +54,46 @@ function forEach(array, callback) {
 
 //Extension 1
 function mapWith(array, callback) {
-
+	let output = []
+	forEach(array, (element) => {
+		output.push(callback(element))
+	})
+	return output
 }
+
+console.log("MapWith:", mapWith([1,2,3], addTwo))
 
 //Extension 2
 function reduce(array, callback, initialValue) {
-
+	for(i = 0; i < array.length; i++){
+		initialValue = callback(initialValue, array[i])
+	}
+	return initialValue
 }
+
+// Extension 2 tester
+const nums = [4, 1, 3]
+const add = (a, b) => a + b
+
+console.log("Reduce:", reduce(nums, add, 0))
 
 //Extension 3
-function intersection(arrays) {
 
+function intersection(initialValue, ...arrays) {	
+
+	return reduce(arrays, function(inital, array){
+		const output = []
+		forEach(array, (el) => {
+			if(inital.includes(el)) output.push(el)
+		})
+		return output
+	}, initialValue)
 }
 
-// console.log(intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]));
+
+
+
+console.log(intersection([5, 10, 15, 20], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20]));
 // should log: [5, 15]
 
 //Extension 4
