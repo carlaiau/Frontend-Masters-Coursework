@@ -80,7 +80,7 @@ console.log("Reduce:", reduce(nums, add, 0))
 //Extension 3
 
 function intersection(...arrays) {
-	
+
 	/* 
 	Note usage of real reduce and real forEach
 	Refer to specification for algo definition as to how it functions without
@@ -104,7 +104,6 @@ function intersection(...arrays) {
 	const custom = reduce(arrays, (current, next) => {
 		const filtered = []
 		forEach(next, (el) => {
-			console.log(el)
 			if(current.includes(el)) filtered.push(el)
 		})
 		return filtered
@@ -126,10 +125,6 @@ function union(...arrays) {
 		})
 		return seen
 	}, [])
-
-
-
-
 }
 
 console.log("Union: ", union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
@@ -138,9 +133,17 @@ console.log("Union: ", union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]
 //Extension 5
 function objOfMatches(array1, array2, callback) {
 
+	let index = 0
+	return reduce(array1, (acc, el) => {
+		if(callback(el) == array2[index]){
+			acc[el] = array2[index]
+		}
+		index++
+		return acc
+	}, {})
 }
 
-// console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
+console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
 // should log: { hi: 'HI', bye: 'BYE', later: 'LATER' }
 
 //Extension 6
