@@ -65,8 +65,8 @@ console.log("MapWith:", mapWith([1,2,3], addTwo))
 
 //Extension 2
 function reduce(array, callback, initialValue) {
-	for(i = 0; i < array.length; i++){
-		initialValue = callback(initialValue, array[i])
+	for(let i of array){
+		initialValue = callback(initialValue, i)
 	}
 	return initialValue
 }
@@ -79,26 +79,60 @@ console.log("Reduce:", reduce(nums, add, 0))
 
 //Extension 3
 
-function intersection(initialValue, ...arrays) {	
-
-	return reduce(arrays, (current, next) => {
+function intersection(...arrays) {
+	
+	/* 
+	Note usage of real reduce and real forEach
+	Refer to specification for algo definition as to how it functions without
+	a specified initialValue. 
+		
+	https://tc39.es/ecma262/#sec-array.prototype.reduce
+	
+	If you do define the init value as an empty array this will not work.
+		
+	*/
+	const correct = arrays.reduce((current, next) => {
 		const filtered = []
-		forEach(next, el => {
+		next.forEach((el) => {
 			if(current.includes(el)) filtered.push(el)
 		})
 		return filtered
-	}, initialValue)
+	}) 
+
+	// Using only our functions
+	const init = arrays[0]
+	const custom = reduce(arrays, (current, next) => {
+		const filtered = []
+		forEach(next, (el) => {
+			console.log(el)
+			if(current.includes(el)) filtered.push(el)
+		})
+		return filtered
+	}, init)
+
+	return custom
+	
 }
 
-console.log(intersection([5, 10, 15, 20, 13], [15, 88, 1, 5, 7, 13], [1, 13, 10, 15, 5, 20]));
-// should log: [5, 15]
+console.log("Intersection: ", intersection([5, 10, 15, 20,1], [15, 88, 1, 5, 7], [1, 10, 15, 5, 20], [1, 5, 20]));
 
 //Extension 4
-function union(arrays) {
+function union(...arrays) {
+	
+	return reduce(arrays, (seen, next) => {
+		forEach(next, (element) => {
+			console.log(element)
+			if(!seen.includes(element)) seen.push(element);
+		})
+		return seen
+	}, [])
+
+
+
 
 }
 
-// console.log(union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
+console.log("Union: ", union([5, 10, 15], [15, 88, 1, 5, 7], [100, 15, 10, 1, 5]));
 // should log: [5, 10, 15, 88, 1, 7, 100]
 
 //Extension 5
