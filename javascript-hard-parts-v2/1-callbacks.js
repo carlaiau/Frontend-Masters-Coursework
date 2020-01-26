@@ -141,6 +141,14 @@ function objOfMatches(array1, array2, callback) {
 		index++
 		return acc
 	}, {})
+
+	// Using built-in reduce would allow automatic index declaration and incrementation
+	return array1.reduce((acc, el, index) => {
+        if(callback(el) == array2[index]){
+            acc[el] = array2[index]
+        }
+        return acc
+    }, {})
 }
 
 console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy', 'BYE', 'LATER', 'hello'], function(str) { return str.toUpperCase(); }));
@@ -149,21 +157,42 @@ console.log(objOfMatches(['hi', 'howdy', 'bye', 'later', 'hello'], ['HI', 'Howdy
 //Extension 6
 function multiMap(arrVals, arrCallbacks) {
 
+	return reduce(arrVals, (acc, cur) => {
+		acc[cur] = []
+		forEach(arrCallbacks, (fn) => {
+			acc[cur].push(fn(cur))
+		})
+		return acc
+	}, {})
 }
 
-// console.log(multiMap(['catfood', 'glue', 'beer'], [function(str) { return str.toUpperCase(); }, function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, function(str) { return str + str; }]));
+console.log(multiMap(
+	['catfood', 'glue', 'beer'], 
+	[	
+		function(str) { return str.toUpperCase(); }, 
+		function(str) { return str[0].toUpperCase() + str.slice(1).toLowerCase(); }, 
+		function(str) { return str + str; }
+	]
+));
 // should log: { catfood: ['CATFOOD', 'Catfood', 'catfoodcatfood'], glue: ['GLUE', 'Glue', 'glueglue'], beer: ['BEER', 'Beer', 'beerbeer'] }
 
 
 //Extension 7
 function objectFilter(obj, callback) {
-
+	return reduce(Object.keys(obj), (acc, key) => {
+		if(obj[key] == callback(key)){
+			acc[key] = callback(key)
+		}
+		return acc
+	}, {})
+	
 }
 
-// const cities = {
-// London: 'LONDON',
-// LA: 'Los Angeles',
-// Paris: 'PARIS',
-// };
-// console.log(objectFilter(cities, city => city.toUpperCase())) // Should log { London: 'LONDON', Paris: 'PARIS'}
+const cities = {
+	London: 'LONDON',
+	LA: 'Los Angeles',
+	Paris: 'PARIS',
+};
+console.log(objectFilter(cities, city => city.toUpperCase())) 
+// Should log { London: 'LONDON', Paris: 'PARIS'}
 
