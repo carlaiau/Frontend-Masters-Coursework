@@ -1,4 +1,5 @@
-// http://csbin.io/async
+
+
 
 /* CHALLENGE 1 */
 
@@ -11,21 +12,25 @@ function sayHowdy() {
     console.log('Partnah');
   }
   // After thinking it through, uncomment the following line to check your guess!
-  // testMe(); // what order should these log out? Howdy or Partnah first?
+  //testMe(); // what order should these log out? Howdy or Partnah first?
   
   
   /* CHALLENGE 2 */
   
   function delayedGreet() {
     // ADD CODE HERE
+    setTimeout(() => { console.log('welcome') }, 3000)
   }
   // Uncomment the following line to check your work!
-  // delayedGreet(); // should log (after 3 seconds): welcome
+  //delayedGreet(); // should log (after 3 seconds): welcome
   
   
   /* CHALLENGE 3 */
   
   function helloGoodbye() {
+    console.log('hello')
+    setTimeout(() => { console.log('Good Bye') }, 3000)
+
     // ADD CODE HERE
   }
   // Uncomment the following line to check your work!
@@ -35,7 +40,9 @@ function sayHowdy() {
   /* CHALLENGE 4 */
   
   function brokenRecord() {
-    // ADD CODE HERE
+      setInterval(() => {
+        console.log('hi again')
+      }, 1000);
   }
   // Uncomment the following line to check your work!
   // brokenRecord(); // should log (every second): hi again
@@ -44,22 +51,41 @@ function sayHowdy() {
   /* CHALLENGE 5 */
   
   function limitedRepeat() {
+    let counter = 0
+
+    var repeated = setInterval( () => {
+      if(counter >= 5) clearInterval(repeated) // This reference is buzzy
+      console.log('hi for now')
+      counter++
+    }, 1000)
+    
+    
+    
     // ADD CODE HERE
   }
   // Uncomment the following line to check your work!
-  // limitedRepeat(); // should log (every second, for 5 seconds): hi for now
+ // limitedRepeat(); // should log (every second, for 5 seconds): hi for now
   
   
   /* CHALLENGE 6 */
   
-  function everyXsecsForYsecs() {
+  function everyXsecsForYsecs(callback, timeOut, length) {
     // ADD CODE HERE
+    timePassed = 0
+    timeOut *= 1000 
+    length *= 1000
+
+    var repeated = setInterval(() => {
+      if(timePassed >= length) clearInterval(repeated)
+      callback()
+      timePassed += timeOut
+    }, timeOut)
   }
   // Uncomment the following lines to check your work!
-  // function theEnd() {
-  //   console.log('This is the end!');
-  // }
-  // everyXsecsForYsecs(theEnd, 2, 20); // should invoke theEnd function every 2 seconds, for 20 seconds): This is the end!
+   function theEnd() {
+    console.log('This is the end!');
+  }
+  everyXsecsForYsecs(theEnd, 0.25, 5); // should invoke theEnd function every 0.25 seconds, for 5 seconds): This is the end!
   
   
   /* CHALLENGE 7 */
