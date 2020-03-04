@@ -1,0 +1,53 @@
+<script>
+
+class Dep {
+  
+  constructor(){
+    this.subscribers = new Set()
+  }
+
+  depend(){
+    if(activeUpdate)
+      this.subscribers.add(activeUpdate)
+    
+  }
+
+  notify(){
+    this.subscribers.forEach( val => { val() } )
+    // run all subscriber functions
+  }
+
+}
+
+const deps = {}
+function observe (obj){
+  Object.keys(obj).forEach( (key) => {
+    let internalValue = obj[key]
+    deps[key] = new Dep()
+    Object.defineProperty(obj, key, {
+      get() {
+        deps[key].depend()
+        return internalValue
+      },
+      set(val) {
+        internalValue = val
+        deps[key].notify()
+      }
+    })
+
+  })
+}
+
+let activeUpdate 
+
+function autorun (update) {
+
+  function wrappedUpdate() {
+    activeUpdate = wrappedUpdate
+    update()
+    activeUpdate = null
+  }
+  wrappedUpdate()
+}
+
+</script>

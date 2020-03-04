@@ -26,8 +26,7 @@ const TextBox = styled('div')`
         text-shadow: 1px 1px 3px #eeddff66;
         font-size: 2.25rem;
     }
-    p,
-    a{
+    p, a{
         color: #222;
     }
     a{
