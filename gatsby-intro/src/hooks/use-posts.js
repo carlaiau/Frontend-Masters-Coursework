@@ -9,18 +9,27 @@ const usePosts = () => {
                     title
                     slug
                     author
+                    image {
+                        sharp: childImageSharp{
+                            fluid(
+                                maxWidth: 100
+                                maxHeight: 100
+                            ){
+                                ...GatsbyImageSharpFluid_withWebp
+                            }
+                        }
+                    }
                 }
                 excerpt
             }
         }
     }`)
 
-    return data.allMdx.nodes.map(post => ({
-        title: post.frontmatter.title,
-        author: post.frontmatter.author,
-        slug: post.frontmatter.slug,
-        excerpt: post.excerpt
-    }))
+    return data.allMdx.nodes.map(post => {
+        const {title, author, slug, image } = post.frontmatter
+        const excerpt = post.excerpt
+        return { title, author, slug, excerpt, image }
+    })
 }
 
 export default usePosts

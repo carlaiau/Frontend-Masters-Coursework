@@ -3,7 +3,7 @@ import { css } from '@emotion/core'
 
 const Wave = () => {
     const [waves, setWaves] = useState(0)
-    const label = `${waves} ${waves == 1 ? 'wave': 'waves'}`
+    const label = `${waves} ${waves === 1 ? 'wave': 'waves'}`
 
     return (
         <button
