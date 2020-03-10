@@ -1,10 +1,11 @@
 {
   "name": "theme-dev",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "gatsby-config.js",
   "license": "MIT",
   "private": true,
   "scripts": {
+    "build": "gatsby build",
     "develop": "gatsby develop"
   },
 
