@@ -7,6 +7,7 @@ const DocsPage = ({ page }) => (
     <h1>{page.title}</h1>
     <MDXRenderer>{page.body}</MDXRenderer>
     <p>This page was updated {page.updated}.</p>
+    <p>How cool is this</p>
   </Layout>
 );
 
