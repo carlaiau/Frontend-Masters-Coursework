@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
+import PalettePreview from '../components/PalettePreview';
+
 const Home = ({ navigation }) => {
   const COLOR_PALETTES = [
     {
@@ -60,16 +62,7 @@ const Home = ({ navigation }) => {
             }}
           >
             <Text style={styles.heading}>{item.name}</Text>
-            <FlatList
-              style={styles.paletteRow}
-              data={item.colors.slice(0, 5)}
-              renderItem={({ item }) => (
-                <View
-                  style={[styles.paletteBox, { backgroundColor: item.hex }]}
-                  key={item.hex}
-                />
-              )}
-            />
+            <PalettePreview squares={item.colors.slice(0, 5)} />
           </TouchableOpacity>
         )}
         keyExtractor={(_, i) => i}
@@ -80,25 +73,13 @@ const Home = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'white',
     padding: 10,
     flex: 1,
   },
   heading: {
     fontSize: 18,
     fontWeight: '700',
-  },
-  paletteRow: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    marginTop: 5,
-    marginBottom: 10,
-  },
-  paletteBox: {
-    width: 50,
-    height: 50,
-    marginRight: 5,
-    borderRadius: 3,
   },
 });
 

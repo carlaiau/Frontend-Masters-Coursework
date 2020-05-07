@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
+import { SafeAreaView, StyleSheet, FlatList } from 'react-native';
 
 import ColorBox from '../components/ColorBox';
 
@@ -20,6 +20,7 @@ const ColorPalette = ({ route }) => {
 
 const styles = StyleSheet.create({
   everything: {
+    backgroundColor: 'white',
     flex: 1,
   },
   container: {
