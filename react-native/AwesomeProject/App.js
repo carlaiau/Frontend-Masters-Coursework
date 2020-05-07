@@ -1,6 +1,8 @@
 import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 
+import ColorBox from './components/ColorBox';
+
 const App = () => {
   const boxes = [
     { name: 'Cyan', hex: '#2aa198' },
@@ -12,13 +14,11 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={[styles.text, { marginBottom: 10 }]}>
+        <Text style={styles.heading}>
           Here are some boxes of different colours
         </Text>
         {boxes.map((box, i) => (
-          <View style={[styles.box, { backgroundColor: box.hex }]} key={i}>
-            <Text style={styles.boxText}>{`${box.name} ${box.hex}`}</Text>
-          </View>
+          <ColorBox name={box.name} hex={box.hex} key={i} />
         ))}
       </View>
     </SafeAreaView>
@@ -31,20 +31,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 50,
   },
-  box: {
-    padding: 10,
-    marginBottom: 10,
-    borderRadius: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  text: {
+  heading: {
     fontWeight: 'bold',
     fontSize: 18,
-  },
-  boxText: {
-    fontWeight: 'bold',
-    color: 'white',
+    marginBottom: 10,
   },
 });
 
