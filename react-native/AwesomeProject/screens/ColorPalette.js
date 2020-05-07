@@ -11,8 +11,10 @@ const ColorPalette = ({ route }) => {
       <FlatList
         style={styles.container}
         data={colors}
-        renderItem={({ item }) => <ColorBox name={item.colorName} hex={item.hexCode} />}
-        keyExtractor={item => item.colorName}
+        renderItem={({ item }) => (
+          <ColorBox name={item.colorName} hex={item.hexCode} />
+        )}
+        keyExtractor={(item) => item.colorName}
       />
     </SafeAreaView>
   );

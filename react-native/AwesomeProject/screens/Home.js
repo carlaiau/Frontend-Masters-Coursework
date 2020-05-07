@@ -1,140 +1,44 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 
 import PalettePreview from '../components/PalettePreview';
 
 const Home = ({ navigation }) => {
-  const COLOR_PALETTES = [
-    {
-      "id": 0,
-      "paletteName": "Solarized",
-      "colors": [
-        {
-          "colorName": "Base03",
-          "hexCode": "#002b36"
-        },
-        {
-          "colorName": "Base02",
-          "hexCode": "#073642"
-        },
-        {
-          "colorName": "Base01",
-          "hexCode": "#586e75"
-        },
-        {
-          "colorName": "Base00",
-          "hexCode": "#657b83"
-        },
-        {
-          "colorName": "Base0",
-          "hexCode": "#839496"
-        },
-        {
-          "colorName": "Base1",
-          "hexCode": "#93a1a1"
-        },
-        {
-          "colorName": "Base2",
-          "hexCode": "#eee8d5"
-        },
-        {
-          "colorName": "Base3",
-          "hexCode": "#fdf6e3"
-        },
-        {
-          "colorName": "Yellow",
-          "hexCode": "#b58900"
-        },
-        {
-          "colorName": "Orange",
-          "hexCode": "#cb4b16"
-        },
-        {
-          "colorName": "Red",
-          "hexCode": "#dc322f"
-        },
-        {
-          "colorName": "Magenta",
-          "hexCode": "#d33682"
-        },
-        {
-          "colorName": "Violet",
-          "hexCode": "#6c71c4"
-        },
-        {
-          "colorName": "Blue",
-          "hexCode": "#268bd2"
-        },
-        {
-          "colorName": "Cyan",
-          "hexCode": "#2aa198"
-        },
-        {
-          "colorName": "Green",
-          "hexCode": "#859900"
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "paletteName": "Frontend Masters",
-      "colors": [
-        {
-          "colorName": "Red",
-          "hexCode": "#c02d28"
-        },
-        {
-          "colorName": "Black",
-          "hexCode": "#3e3e3e"
-        },
-        {
-          "colorName": "Grey",
-          "hexCode": "#8a8a8a"
-        },
-        {
-          "colorName": "White",
-          "hexCode": "#ffffff"
-        },
-        {
-          "colorName": "Orange",
-          "hexCode": "#e66225"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "paletteName": "Rainbow",
-      "colors": [
-        {
-          "colorName": "Red",
-          "hexCode": "#FF0000"
-        },
-        {
-          "colorName": "Orange",
-          "hexCode": "#FF7F00"
-        },
-        {
-          "colorName": "Yellow",
-          "hexCode": "#FFFF00"
-        },
-        {
-          "colorName": "Green",
-          "hexCode": "#00FF00"
-        },
-        {
-          "colorName": "Violet",
-          "hexCode": "#8B00FF"
-        }
-      ]
-    },
+  // State Hook obviously
+  const [palettes, setPalettes] = useState([]);
+  const [isRefreshing, setIsRefreshing] = useState(false)
 
-  ]
+  // UseCallback
+  const getPalletes = useCallback(async () => {
+    const result = await fetch(
+      'https://color-palette-api.kadikraman.now.sh/palettes',
+    );
+    if (result.ok) {
+      const data = await result.json();
+      setPalettes(data);
+    }
+  }, []);
+
+  // call the callback on mount
+  useEffect(() => {
+    getPalletes();
+  }, []);
+
+  const handleRefresh = useCallback(async () => {
+    setIsRefreshing(true)
+    await getPalletes();
+    // Emulate
+    setTimeout(() => {
+      setIsRefreshing(false)
+    }, 1000)
+
+  }, [])
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.container}
-        data={COLOR_PALETTES}
+        data={palettes}
         renderItem={({ item }) => (
           <PalettePreview
             handlePress={() => {
@@ -144,7 +48,9 @@ const Home = ({ navigation }) => {
             palette={item}
           />
         )}
-        keyExtractor={item => item.paletteName}
+        keyExtractor={(item) => item.paletteName}
+        refreshing={isRefreshing}
+        onRefresh={handleRefresh}
       />
     </View>
   );
