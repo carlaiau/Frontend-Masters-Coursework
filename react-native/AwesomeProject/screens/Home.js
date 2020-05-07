@@ -1,6 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { View, StyleSheet, FlatList } from 'react-native';
 
 import PalettePreview from '../components/PalettePreview';
 
@@ -55,17 +54,15 @@ const Home = ({ navigation }) => {
         style={styles.container}
         data={COLOR_PALETTES}
         renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() => {
+          <PalettePreview
+            handlePress={() => {
               const { name, colors } = item;
               navigation.push('ColorPalette', { name, colors });
             }}
-          >
-            <Text style={styles.heading}>{item.name}</Text>
-            <PalettePreview squares={item.colors.slice(0, 5)} />
-          </TouchableOpacity>
+            palette={item}
+          />
         )}
-        keyExtractor={(_, i) => i}
+        keyExtractor={item => item.name}
       />
     </View>
   );
@@ -76,10 +73,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     padding: 10,
     flex: 1,
-  },
-  heading: {
-    fontSize: 18,
-    fontWeight: '700',
   },
 });
 

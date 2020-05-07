@@ -1,16 +1,21 @@
 import React from 'react';
 
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const PalettePreview = ({ squares }) => (
-  <FlatList
-    style={styles.row}
-    data={squares}
-    renderItem={({ item }) => (
-      <View style={[styles.square, { backgroundColor: item.hex }]} />
-    )}
-    keyExtractor={(_, i) => i}
-  />
+
+const PalettePreview = ({ handlePress, palette }) => (
+  <TouchableOpacity onPress={handlePress}>
+    <Text style={styles.heading}>{palette.name}</Text>
+    <FlatList
+      style={styles.row}
+      data={palette.colors.slice(0, 5)}
+      renderItem={({ item }) => (
+        <View style={[styles.square, { backgroundColor: item.hex }]} />
+      )}
+      keyExtractor={item => item.name}
+    />
+  </TouchableOpacity>
 );
 
 const styles = StyleSheet.create({

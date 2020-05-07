@@ -12,7 +12,7 @@ const ColorPalette = ({ route }) => {
         style={styles.container}
         data={colors}
         renderItem={({ item }) => <ColorBox name={item.name} hex={item.hex} />}
-        keyExtractor={(_, i) => i}
+        keyExtractor={item => item.name}
       />
     </SafeAreaView>
   );
