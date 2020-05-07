@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, FlatList } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = ({ navigation }) => {
-  const colors = [
+  const COLOR_PALETTES = [
     {
       name: 'Solarized',
       colors: [
@@ -23,7 +23,7 @@ const Home = ({ navigation }) => {
         { name: 'Blue', hex: '#268bd2' },
         { name: 'Cyan', hex: '#2aa198' },
         { name: 'Green', hex: '#859900' },
-      ]
+      ],
     },
     {
       name: 'Rainbow',
@@ -33,7 +33,7 @@ const Home = ({ navigation }) => {
         { name: 'Yellow', hex: '#FFFF00' },
         { name: 'Green', hex: '#00FF00' },
         { name: 'Violet', hex: '#8B00FF' },
-      ]
+      ],
     },
     {
       name: 'Frontend Masters',
@@ -43,28 +43,37 @@ const Home = ({ navigation }) => {
         { name: 'Grey', hex: '#8a8a8a' },
         { name: 'White', hex: '#ffffff' },
         { name: 'Orange', hex: '#e66225' },
-      ]
-    }
-  ]
+      ],
+    },
+  ];
 
   return (
     <View style={styles.container}>
       <FlatList
         style={styles.container}
-        data={colors}
+        data={COLOR_PALETTES}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {
-              const { name, colors } = item
-              navigation.push('ColorPalette', { name, colors })
+              const { name, colors } = item;
+              navigation.push('ColorPalette', { name, colors });
             }}
           >
             <Text style={styles.heading}>{item.name}</Text>
-          </TouchableOpacity>)}
+            <FlatList
+              style={styles.paletteRow}
+              data={item.colors.slice(0, 5)}
+              renderItem={({ item }) => (
+                <View
+                  style={[styles.paletteBox, { backgroundColor: item.hex }]}
+                  key={item.hex}
+                />
+              )}
+            />
+          </TouchableOpacity>
+        )}
         keyExtractor={(_, i) => i}
       />
-
-
     </View>
   );
 };
@@ -72,11 +81,24 @@ const Home = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    flex: 1,
   },
   heading: {
     fontSize: 18,
     fontWeight: '700',
-    marginBottom: 10
+  },
+  paletteRow: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    marginTop: 5,
+    marginBottom: 10,
+  },
+  paletteBox: {
+    width: 50,
+    height: 50,
+    marginRight: 5,
+    borderRadius: 3,
   },
 });
 
