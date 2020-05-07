@@ -2,7 +2,7 @@ import React from 'react';
 import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
 
 const App = () => {
-  const listItems = [
+  const boxes = [
     { name: 'Cyan', hex: '#2aa198' },
     { name: 'Blue', hex: '#268bd2' },
     { name: 'Magenta', hex: '#d33682' },
@@ -12,14 +12,12 @@ const App = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        <Text style={[styles.text, { marginBottom: 5 }]}>
+        <Text style={[styles.text, { marginBottom: 10 }]}>
           Here are some boxes of different colours
         </Text>
-        {listItems.map((li, i) => (
-          <View style={[styles.listItem, { backgroundColor: li.hex }]} key={i}>
-            <Text style={[styles.text, styles.listItemText]}>
-              {li.name} {li.hex}
-            </Text>
+        {boxes.map((box, i) => (
+          <View style={[styles.box, { backgroundColor: box.hex }]} key={i}>
+            <Text style={styles.boxText}>{`${box.name} ${box.hex}`}</Text>
           </View>
         ))}
       </View>
@@ -30,23 +28,23 @@ const App = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingHorizontal: 20,
-    paddingVertical: 30,
+    paddingHorizontal: 10,
+    paddingVertical: 50,
   },
-  listItem: {
+  box: {
     padding: 10,
-    marginVertical: 5,
+    marginBottom: 10,
     borderRadius: 3,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     fontWeight: 'bold',
     fontSize: 18,
   },
-  listItemText: {
-    fontSize: 14,
+  boxText: {
     fontWeight: 'bold',
     color: 'white',
-    textAlign: 'center',
   },
 });
 
