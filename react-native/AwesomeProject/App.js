@@ -1,31 +1,50 @@
 import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, SafeAreaView, StyleSheet, FlatList } from 'react-native';
 
 import ColorBox from './components/ColorBox';
 
 const App = () => {
-  const boxes = [
-    { name: 'Cyan', hex: '#2aa198' },
-    { name: 'Blue', hex: '#268bd2' },
-    { name: 'Magenta', hex: '#d33682' },
+  const COLORS = [
+    { name: 'Base03', hex: '#002b36' },
+    { name: 'Base02', hex: '#073642' },
+    { name: 'Base01', hex: '#586e75' },
+    { name: 'Base00', hex: '#657b83' },
+    { name: 'Base0', hex: '#839496' },
+    { name: 'Base1', hex: '#93a1a1' },
+    { name: 'Base2', hex: '#eee8d5' },
+    { name: 'Base3', hex: '#fdf6e3' },
+    { name: 'Yellow', hex: '#b58900' },
     { name: 'Orange', hex: '#cb4b16' },
+    { name: 'Red', hex: '#dc322f' },
+    { name: 'Magenta', hex: '#d33682' },
+    { name: 'Violet', hex: '#6c71c4' },
+    { name: 'Blue', hex: '#268bd2' },
+    { name: 'Cyan', hex: '#2aa198' },
+    { name: 'Green', hex: '#859900' },
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={styles.everything}>
       <View style={styles.container}>
         <Text style={styles.heading}>
           Here are some boxes of different colours
         </Text>
-        {boxes.map((box, i) => (
-          <ColorBox name={box.name} hex={box.hex} key={i} />
-        ))}
+        <FlatList
+          data={COLORS}
+          renderItem={({ item }) => (
+            <ColorBox name={item.name} hex={item.hex} />
+          )}
+          keyExtractor={(color, i) => i}
+        />
       </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  everything: {
+    flex: 1,
+  },
   container: {
     flex: 1,
     paddingHorizontal: 10,
