@@ -6,47 +6,129 @@ import PalettePreview from '../components/PalettePreview';
 const Home = ({ navigation }) => {
   const COLOR_PALETTES = [
     {
-      name: 'Solarized',
-      colors: [
-        { name: 'Base03', hex: '#002b36' },
-        { name: 'Base02', hex: '#073642' },
-        { name: 'Base01', hex: '#586e75' },
-        { name: 'Base00', hex: '#657b83' },
-        { name: 'Base0', hex: '#839496' },
-        { name: 'Base1', hex: '#93a1a1' },
-        { name: 'Base2', hex: '#eee8d5' },
-        { name: 'Base3', hex: '#fdf6e3' },
-        { name: 'Yellow', hex: '#b58900' },
-        { name: 'Orange', hex: '#cb4b16' },
-        { name: 'Red', hex: '#dc322f' },
-        { name: 'Magenta', hex: '#d33682' },
-        { name: 'Violet', hex: '#6c71c4' },
-        { name: 'Blue', hex: '#268bd2' },
-        { name: 'Cyan', hex: '#2aa198' },
-        { name: 'Green', hex: '#859900' },
-      ],
+      "id": 0,
+      "paletteName": "Solarized",
+      "colors": [
+        {
+          "colorName": "Base03",
+          "hexCode": "#002b36"
+        },
+        {
+          "colorName": "Base02",
+          "hexCode": "#073642"
+        },
+        {
+          "colorName": "Base01",
+          "hexCode": "#586e75"
+        },
+        {
+          "colorName": "Base00",
+          "hexCode": "#657b83"
+        },
+        {
+          "colorName": "Base0",
+          "hexCode": "#839496"
+        },
+        {
+          "colorName": "Base1",
+          "hexCode": "#93a1a1"
+        },
+        {
+          "colorName": "Base2",
+          "hexCode": "#eee8d5"
+        },
+        {
+          "colorName": "Base3",
+          "hexCode": "#fdf6e3"
+        },
+        {
+          "colorName": "Yellow",
+          "hexCode": "#b58900"
+        },
+        {
+          "colorName": "Orange",
+          "hexCode": "#cb4b16"
+        },
+        {
+          "colorName": "Red",
+          "hexCode": "#dc322f"
+        },
+        {
+          "colorName": "Magenta",
+          "hexCode": "#d33682"
+        },
+        {
+          "colorName": "Violet",
+          "hexCode": "#6c71c4"
+        },
+        {
+          "colorName": "Blue",
+          "hexCode": "#268bd2"
+        },
+        {
+          "colorName": "Cyan",
+          "hexCode": "#2aa198"
+        },
+        {
+          "colorName": "Green",
+          "hexCode": "#859900"
+        }
+      ]
     },
     {
-      name: 'Rainbow',
-      colors: [
-        { name: 'Red', hex: '#FF0000' },
-        { name: 'Orange', hex: '#FF7F00' },
-        { name: 'Yellow', hex: '#FFFF00' },
-        { name: 'Green', hex: '#00FF00' },
-        { name: 'Violet', hex: '#8B00FF' },
-      ],
+      "id": 1,
+      "paletteName": "Frontend Masters",
+      "colors": [
+        {
+          "colorName": "Red",
+          "hexCode": "#c02d28"
+        },
+        {
+          "colorName": "Black",
+          "hexCode": "#3e3e3e"
+        },
+        {
+          "colorName": "Grey",
+          "hexCode": "#8a8a8a"
+        },
+        {
+          "colorName": "White",
+          "hexCode": "#ffffff"
+        },
+        {
+          "colorName": "Orange",
+          "hexCode": "#e66225"
+        }
+      ]
     },
     {
-      name: 'Frontend Masters',
-      colors: [
-        { name: 'Red', hex: '#c02d28' },
-        { name: 'Black', hex: '#3e3e3e' },
-        { name: 'Grey', hex: '#8a8a8a' },
-        { name: 'White', hex: '#ffffff' },
-        { name: 'Orange', hex: '#e66225' },
-      ],
+      "id": 2,
+      "paletteName": "Rainbow",
+      "colors": [
+        {
+          "colorName": "Red",
+          "hexCode": "#FF0000"
+        },
+        {
+          "colorName": "Orange",
+          "hexCode": "#FF7F00"
+        },
+        {
+          "colorName": "Yellow",
+          "hexCode": "#FFFF00"
+        },
+        {
+          "colorName": "Green",
+          "hexCode": "#00FF00"
+        },
+        {
+          "colorName": "Violet",
+          "hexCode": "#8B00FF"
+        }
+      ]
     },
-  ];
+
+  ]
 
   return (
     <View style={styles.container}>
@@ -56,13 +138,13 @@ const Home = ({ navigation }) => {
         renderItem={({ item }) => (
           <PalettePreview
             handlePress={() => {
-              const { name, colors } = item;
-              navigation.push('ColorPalette', { name, colors });
+              const { paletteName, colors } = item;
+              navigation.push('ColorPalette', { name: paletteName, colors });
             }}
             palette={item}
           />
         )}
-        keyExtractor={item => item.name}
+        keyExtractor={item => item.paletteName}
       />
     </View>
   );

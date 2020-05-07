@@ -6,14 +6,14 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const PalettePreview = ({ handlePress, palette }) => (
   <TouchableOpacity onPress={handlePress}>
-    <Text style={styles.heading}>{palette.name}</Text>
+    <Text style={styles.heading}>{palette.paletteName}</Text>
     <FlatList
       style={styles.row}
       data={palette.colors.slice(0, 5)}
       renderItem={({ item }) => (
-        <View style={[styles.square, { backgroundColor: item.hex }]} />
+        <View style={[styles.square, { backgroundColor: item.hexCode }]} />
       )}
-      keyExtractor={item => item.name}
+      keyExtractor={item => item.colorName}
     />
   </TouchableOpacity>
 );
@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   square: {
-    width: 50,
-    height: 50,
-    marginRight: 5,
+    width: 60,
+    height: 60,
+    marginRight: 10,
     borderRadius: 3,
   },
 });
