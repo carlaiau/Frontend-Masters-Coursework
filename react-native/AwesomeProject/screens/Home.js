@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet, FlatList, Text } from 'react-native';
 
 import PalettePreview from '../components/PalettePreview';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Home = ({ navigation }) => {
   // State Hook obviously
   const [palettes, setPalettes] = useState([]);
-  const [isRefreshing, setIsRefreshing] = useState(false)
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   // UseCallback
   const getPalletes = useCallback(async () => {
@@ -25,14 +26,14 @@ const Home = ({ navigation }) => {
   }, []);
 
   const handleRefresh = useCallback(async () => {
-    setIsRefreshing(true)
+    setIsRefreshing(true);
     await getPalletes();
     // Emulate
     setTimeout(() => {
-      setIsRefreshing(false)
+      setIsRefreshing(false);
     }, 1000)
 
-  }, [])
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -51,6 +52,15 @@ const Home = ({ navigation }) => {
         keyExtractor={(item) => item.paletteName}
         refreshing={isRefreshing}
         onRefresh={handleRefresh}
+        ListHeaderComponent={
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate('ColorPaletteModal')
+            }}
+          >
+            <Text>Launch Modal</Text>
+          </TouchableOpacity>
+        }
       />
     </View>
   );
