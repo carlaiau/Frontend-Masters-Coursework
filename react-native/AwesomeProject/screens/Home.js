@@ -4,8 +4,10 @@ import { View, StyleSheet, FlatList, Text } from 'react-native';
 import PalettePreview from '../components/PalettePreview';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Home = ({ navigation }) => {
-  // State Hook obviously
+const Home = ({ navigation, route }) => {
+  const newColorPalette = route.params
+    ? route.params.newColorPalette
+    : undefined;
   const [palettes, setPalettes] = useState([]);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -25,14 +27,19 @@ const Home = ({ navigation }) => {
     getPalletes();
   }, []);
 
+  useEffect(() => {
+    if (newColorPalette) {
+      setPalettes((current) => [newColorPalette, ...current]);
+    }
+  }, [newColorPalette]);
+
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
     await getPalletes();
     // Emulate
     setTimeout(() => {
       setIsRefreshing(false);
-    }, 1000)
-
+    }, 1000);
   }, []);
 
   return (
@@ -55,10 +62,10 @@ const Home = ({ navigation }) => {
         ListHeaderComponent={
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('ColorPaletteModal')
+              navigation.navigate('ColorPaletteModal');
             }}
           >
-            <Text>Launch Modal</Text>
+            <Text style={styles.buttonText}>Add a colour scheme</Text>
           </TouchableOpacity>
         }
       />
@@ -67,6 +74,12 @@ const Home = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: 'teal',
+    marginBottom: 10,
+  },
   container: {
     backgroundColor: 'white',
     padding: 10,

@@ -9,7 +9,6 @@ import ColorPaletteModal from './screens/ColorPaletteModal';
 const RootStack = createStackNavigator();
 const MainStack = createStackNavigator();
 
-
 const MainStackScreen = () => (
   <MainStack.Navigator>
     <MainStack.Screen name="Home" component={Home} />
@@ -19,9 +18,7 @@ const MainStackScreen = () => (
       options={({ route }) => ({ title: route.params.name })}
     />
   </MainStack.Navigator>
-
 );
-
 
 const App = () => (
   <NavigationContainer>
@@ -31,7 +28,10 @@ const App = () => (
         component={MainStackScreen}
         options={{ headerShown: false }}
       />
-      <RootStack.Screen name="ColorPaletteModal" component={ColorPaletteModal} />
+      <RootStack.Screen
+        name="ColorPaletteModal"
+        component={ColorPaletteModal}
+      />
     </RootStack.Navigator>
   </NavigationContainer>
 );
